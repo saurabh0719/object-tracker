@@ -5,7 +5,7 @@ long_description = pathlib.Path("README.rst").read_text()
 
 setup(
     name="hawk-eye",
-    packages=["hawk-eye"],
+    packages=["hawk_eye"],
     version="0.1.0",
     license="three-clause BSD",
     description="A pure python object change and history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them.",
