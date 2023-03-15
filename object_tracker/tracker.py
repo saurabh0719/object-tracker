@@ -60,12 +60,17 @@ class ObjectTracker:
         curr = getattr(self, attr, value)
         super().__setattr__(attr, value)
 
-
-        caller = inspect.currentframe().f_back.f_code.co_name
-        # _ignore_init skips tracking for changes done in the init method
-        # don't push to changelog and observers
-        if '__init__' in caller and self._ignore_init:
-            return
+        # get previous frame
+        caller_frame = inspect.currentframe().f_back
+        if caller_frame:
+            caller_fn = caller_frame.f_code.co_name
+            if (
+                caller_frame.f_locals['self'].__class__ == self.__class__
+                and '__init__' in caller_fn
+                and self._ignore_init
+            ):
+                # Ignore changes made in the __init__ fn of the same class if self._ignore_init
+                return
 
         self._changelog.push(
             attr=attr, 

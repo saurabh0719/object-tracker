@@ -67,3 +67,22 @@ class TestTracker(unittest.TestCase):
         self.assertTrue(user._auto_notify)
         self.assertEqual(len(user._changelog), 0)
         user._changelog.flush()
+
+    def test_ignore_init(self):
+
+        user = User("A", 100)
+        assert user._has_changed() is False
+        user.name = "B"
+        assert user._has_changed() is True
+        user._changelog.flush()
+        
+        class Example:
+            def __init__(self, name, age) -> None:
+                self.user = User(name, age)
+                print(self.user._changelog.fetch())
+                assert self.user._has_changed() is False
+                self.user.name = "B"
+                print(self.user._changelog.fetch())
+                assert self.user._has_changed() is True
+
+        Example("A", 50)
