@@ -1,7 +1,7 @@
 <div align="center">
     <img src="./assets/hawkeye.png" width ="75%">
     
-## hawkeye :eagle:
+# hawkeye :eagle:
 </div align="center">
 <br>
 
@@ -14,7 +14,7 @@ $ pip install hawk-eye
 Tested for python `3.7` and above.
 
 <span id="features"></span>
-### Key Features
+## Key Features
 
 -  Determine if a python object has changed.
 -  Investigate change history through the structured changelog.
@@ -41,7 +41,7 @@ Tested for python `3.7` and above.
 <br>
 
 <span id="usage"></span>
-### Usage 
+## Basic Usage 
 
 ```python
 
@@ -69,16 +69,15 @@ print(user._has_changed())
 ```
 
 <span id="guide"></span>
-### Guide 
+## Guide 
 
 Hawkeye uses an `underscore _` before method and attribute names, to prevent being overriden. 
 
 [Go back to the table of contents](#contents)
 
-<br>
 
 <span id="config"></span>
-#### Configuration 
+### Configuration 
 
 There are a bunch of config variables that can be modified when inheriting the `ObjectTracker` class:
 
@@ -110,7 +109,7 @@ class User(ObjectTracker):
 [Go back to the table of contents](#contents)
 
 <span id="change"></span>
-#### Track object change
+### Track object change
 
 `_has_changed()` checks if _any_ attribute has changed, whereas `_has_attribute_changed(attr)` checks if a single attribute has changed.
 
@@ -146,7 +145,7 @@ user._track_initial_state()
 [Go back to the table of contents](#contents)
 
 <span id="changelog"></span>
-#### Changelog 
+### Changelog 
 
 Each trackable object has a structured changelog - `self._changelog` - for all the attributes, an instance of `ObjectChangeLog`.
 
@@ -180,7 +179,7 @@ print(history)
 
 
 <span id="query"></span>
-#### Querying the changelog 
+### Querying the changelog 
 
 The `ObjectChangeLog` class offers a simple query interface to filter logs - 
 
@@ -365,7 +364,7 @@ View Hawkeye's detailed [release history](https://github.com/saurabh0719/hawkeye
 <hr>
 
 <span id="license"></span>
-### License
+## License
 
 ```
 Copyright (c) Saurabh Pujari
