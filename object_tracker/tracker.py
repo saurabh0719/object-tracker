@@ -35,10 +35,14 @@ class ObjectTracker:
         
     """
 
+    # Class variables of the tracker 
+    # In the case where ObjectTracker's __init__ method is not called
+    # The class variables will be used. This will only work with Singletons 
+    # Otherwise there will be overwrites/loss of data due to a common changelog
     _observers = []
     _auto_notify = True
     _ignore_init = True
-    _changelog = ObjectChangeLog()
+    _changelog = ObjectChangeLog() # class common changelog
     _observable_attributes = []
     _attribute_observer_map = {}
     _initial_state = None
@@ -51,6 +55,19 @@ class ObjectTracker:
         '_initial_state'
         '_tracker_attrs'
     ]
+
+    def __init__(self, **kwargs) -> None:
+        """
+            Initialise all instance properties for the tracker
+        """
+        self._observers = kwargs.get("observers", [])
+        self._auto_notify = kwargs.get("auto_notify", True)
+        self._ignore_init = kwargs.get("ignore_init", True)
+        self._changelog = ObjectChangeLog() # Instance changelog
+        self._observable_attributes = kwargs.get("observable_attributes", [])
+        self._attribute_observer_map = kwargs.get("attribute_observer_map", {})
+        self._initial_state = kwargs.get("initial_state")
+
 
     def __setattr__(self, attr, value) -> None:
         """
