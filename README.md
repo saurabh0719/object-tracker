@@ -70,7 +70,9 @@ print(user._has_changed())
 <span id="guide"></span>
 ## Guide 
 
-The Object Tracker uses an `underscore _` before method and attribute names, to prevent being overriden. 
+The `ObjectTracker` class implements `__setattr__` and tracks change history. Any object that needs to be tracked must inherit `ObjectTracker`.
+
+The tracker uses an `underscore _` before method and attribute names, to prevent being overriden/overlapping with subclass methods.
 
 [Go back to the table of contents](#contents)
 
