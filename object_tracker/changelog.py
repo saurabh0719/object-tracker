@@ -64,7 +64,7 @@ class ObjectChangeLog:
         return self._process_filter(attrs, True)
     
     def fetch(self) -> list:
-        return self.buffer
+        return self.buffer or self.log
 
     def flush(self) -> None:
         if self.buffer:
@@ -74,6 +74,9 @@ class ObjectChangeLog:
             self.log = []
             
         self.buffer = []
+
+    def count(self) -> None:
+        return len(self.buffer) if self.buffer else len(self.log)
 
     def push(self, attr, old, new) -> None:
         self.log.append(
