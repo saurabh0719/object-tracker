@@ -1,9 +1,14 @@
-## object-tracker :ledger::pushpin:
+## hawkeye :eagle:
+
+<div align="center">
+    <img src="assets/hawkeye.png.png" width ="75%">
+    
+<div align="center">
 
 A pure python object change &amp; history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them. :pencil:
 
 ```sh
-$ pip install object-tracker
+$ pip install hawk-eye
 ```
 
 Tested for python `3.7` and above.
@@ -20,7 +25,7 @@ Tested for python `3.7` and above.
 
 ```python
 
-from object_tracker import ObjectTracker
+from hawk_eye import ObjectTracker
 
 def observer(attr, old, new):
     print(f"Observer : {attr} -> {old} - {new}")

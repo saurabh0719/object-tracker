@@ -4,8 +4,8 @@ from distutils.core import setup
 long_description = pathlib.Path("README.rst").read_text()
 
 setup(
-    name="object-tracker",
-    packages=["object-tracker"],
+    name="hawk-eye",
+    packages=["hawk-eye"],
     version="0.1.0",
     license="three-clause BSD",
     description="A pure python object change and history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them.",
@@ -14,7 +14,7 @@ setup(
     author_email="saurabhpuj99@gmail.com",
     url="https://github.com/saurabh0719/elara",
     keywords=[
-        "object-tracker", 
+        "hawk-eye", 
         "changelog",
         "object history", 
         "tracker", 
@@ -22,8 +22,8 @@ setup(
         "history"
     ],
     project_urls={
-        "Documentation": "https://github.com/saurabh0719/object-tracker#README",
-        "Source": "https://github.com/saurabh0719/object-tracker",
+        "Documentation": "https://github.com/saurabh0719/hawk-eye#README",
+        "Source": "https://github.com/saurabh0719/hawk-eye",
     },
     install_requires=[],
     classifiers=[
