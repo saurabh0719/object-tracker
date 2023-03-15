@@ -356,7 +356,7 @@ $ python -m unittest -v
 <span id="releases"></span>
 ## Release notes 
 
-* Latest - `v0.1.0` 
+* Latest - `v0.1.1` 
 
 View object-tracker's detailed [release history](https://github.com/saurabh0719/object-tracker/releases/).
 

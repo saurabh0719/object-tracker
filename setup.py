@@ -6,7 +6,7 @@ long_description = pathlib.Path("README.rst").read_text()
 setup(
     name="object-tracker",
     packages=["object_tracker"],
-    version="0.1.0",
+    version="0.1.1",
     license="three-clause BSD",
     description="A pure python object change and history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them.",
     long_description=long_description,
