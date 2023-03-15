@@ -1,0 +1,33 @@
+name: Run tests
+
+on:
+  push:
+    branches: 
+    - main
+    - develop
+    - '**-develop'
+  pull_request:
+    branches: 
+    - main
+    - develop
+  workflow_dispatch:
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9, 3.10, 3.11]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Run tests
+      run: |
+        python -m unittest -v
