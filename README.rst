@@ -6,6 +6,7 @@ A pure python object change and history tracker. Monitor all changes in your obj
 View the `Github repository <https://github.com/saurabh0719/hawk-eye>`__ and the `official docs <https://github.com/saurabh0719/hawk-eye#README>`__.
 
 .. code:: sh
+
     $ pip install hawk-eye
 
 Tested for python 3.6, 3.7 and above.
@@ -33,6 +34,7 @@ Usage :
 ~~~~~~~~~~~~~
 
 .. code:: python
+
    from hawk_eye import ObjectTracker
 
     def observer(attr, old, new):
@@ -53,5 +55,3 @@ Usage :
 
     print(user._has_changed()) 
     # True
-
-.. code:: python
