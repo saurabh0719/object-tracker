@@ -1,6 +1,6 @@
 <div align="center">
     <img src="./assets/hawkeye.png" width ="75%">
-    
+
 # hawkeye 
 </div align="center">
 <br>
@@ -38,7 +38,6 @@ Tested for python `3.7` and above.
 * [Release notes](#releases)
 * [License](#license) 
 
-<br>
 
 <span id="usage"></span>
 ## Basic Usage 
