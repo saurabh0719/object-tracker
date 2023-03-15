@@ -10,6 +10,7 @@ setup(
     license="three-clause BSD",
     description="A pure python object change and history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them.",
     long_description=long_description,
+    long_description_content_type= 'text/x-rst',
     author="Saurabh Pujari",
     author_email="saurabhpuj99@gmail.com",
     url="https://github.com/saurabh0719/elara",
