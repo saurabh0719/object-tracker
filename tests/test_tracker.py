@@ -1,7 +1,6 @@
 import unittest
 from hawk_eye import ObjectTracker
 
-
 # Demo object for testing
 class User(ObjectTracker):
     def __init__(self, name, age) -> None:
