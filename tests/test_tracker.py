@@ -29,6 +29,7 @@ class TestChangeLog(unittest.TestCase):
         user.age = 20
         self.assertEqual(user._changelog.count(), 2)
         self.assertEqual(user._changelog.filter([]).count(), 2)
+        self.assertEqual(user._changelog.filter().count(), 2)
         self.assertEqual(user._changelog.filter(['name',]).count(), 1)
 
         qs = user._changelog.exclude(['name',]).fetch()

@@ -30,17 +30,21 @@ class ObjectChangeLog:
     def __len__(self) -> int:
         return len(self.log)
 
-    def _process_filter(self, attrs: list, exclude=False):
+    def _process_filter(self, attrs, exclude=False):
         """
         Processes filter attrs and saves it in the buffer
 
         - exclude = True for exluding attrs
         """
         _attrs = None
-        if attrs and isinstance(attrs, list):
-            _attrs = attrs
+        if attrs:
+            if isinstance(attrs, list):
+                _attrs = attrs
 
-        # inner
+            elif isinstance(attrs, str):
+                _attrs = [attrs,]
+
+        # innner
         def _filter(entry: LogEntry):
             return entry.attr in _attrs if _attrs else True
 
@@ -51,13 +55,13 @@ class ObjectChangeLog:
 
         return self
 
-    def filter(self, attrs: list = None):
+    def filter(self, attrs=None):
         """
         obj.filter(['name',]).fetch()
         """
         return self._process_filter(attrs)
     
-    def exclude(self, attrs: list = None):
+    def exclude(self, attrs=None):
         """
         obj.exclude(['name',]).fetch()
         """

@@ -1,12 +1,20 @@
 ## object-tracker :ledger::pushpin:
 
-A python object change &amp; history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them. :pencil:
+A pure python object change &amp; history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them. :pencil:
 
 ```sh
-$ pip install object_tracker
+$ pip install object-tracker
 ```
 
 Tested for python `3.7` and above.
+
+### Key Features
+
+-  Determine if a python object has changed.
+-  Investigate change history through the changelog.
+-  Trigger callback functions whenever the object or an attribute has changed.
+-  Simple query interface for object changelog. 
+
 
 ### Usage 
 
@@ -35,7 +43,6 @@ print(user._has_changed())
 
 ```
 
-<hr>
 
 ### License
 

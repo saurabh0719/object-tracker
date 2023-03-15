@@ -18,8 +18,8 @@ class LogEntry:
         self.new = new 
         self.timestamp = datetime.now()
 
-    def display(self):
-        return self.__dict__
+    def print(self):
+        return print(self.__dict__)
     
     def __str__(self) -> str:
         return f"{self.timestamp} - Attribute '{self.attr}' : '{self.old}' --> '{self.new}'"
