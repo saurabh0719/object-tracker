@@ -1,9 +1,9 @@
-## hawkeye :eagle:
-
 <div align="center">
-    <img src="./assets/hawkeye.png.png" width ="75%">
+    <img src="./assets/hawkeye.png" width ="75%">
     
 <div align="center">
+
+## hawkeye :eagle:
 
 A pure python object change &amp; history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them. :pencil:
 
