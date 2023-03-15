@@ -31,6 +31,11 @@ class ObjectChangeLog:
         return len(self.log)
 
     def _process_filter(self, attrs: list, exclude=False):
+        """
+        Processes filter attrs and saves it in the buffer
+
+        - exclude = True for exluding attrs
+        """
         _attrs = None
         if attrs and isinstance(attrs, list):
             _attrs = attrs
@@ -47,9 +52,15 @@ class ObjectChangeLog:
         return self
 
     def filter(self, attrs: list = None):
+        """
+        obj.filter(['name',]).fetch()
+        """
         return self._process_filter(attrs)
     
     def exclude(self, attrs: list = None):
+        """
+        obj.exclude(['name',]).fetch()
+        """
         return self._process_filter(attrs, True)
     
     def fetch(self) -> list:
@@ -80,6 +91,9 @@ class ObjectChangeLog:
         print(self.log)
 
     def has_attribute_changed(self, attr):
+        """
+        Checks if an attribute has changed by verifying against the log
+        """
         first = None
         last = None
 
@@ -100,6 +114,9 @@ class ObjectChangeLog:
         return first.old != last.new
 
     def has_changed(self):
+        """
+        Checks if any attribute has been hanged by verifying against the log
+        """
         seen = set()
         for entry in self.log:
             if entry.attr in seen:

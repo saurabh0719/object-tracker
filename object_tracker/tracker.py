@@ -53,11 +53,16 @@ class ObjectTracker:
     ]
 
     def __setattr__(self, attr, value) -> None:
+        """
+        Overrides __setattr__ to track history and notify observers
+
+        """
         curr = getattr(self, attr, value)
         super().__setattr__(attr, value)
 
-        # print(inspect.stack())
+
         caller = inspect.currentframe().f_back.f_code.co_name
+        # _ignore_init skips tracking for changes done in the init method
         # don't push to changelog and observers
         if '__init__' in caller and self._ignore_init:
             return
@@ -88,11 +93,17 @@ class ObjectTracker:
                 self._call_observers(attr, old, new, self._observers)
 
     def _has_attribute_changed(self, attr):
+        """
+        print(obj._has_attribute_changed('name'))
+        """
         if self._initial_state:
             return getattr(self._initial_state, attr, None) != getattr(self, attr, None)
         return self._changelog.has_attribute_changed(attr)
 
     def _has_changed(self):
+        """
+        print(obj._has_changed('name'))
+        """
         if self._initial_state:
             curr_dict = deepcopy(self.__dict__)
             curr_dict.pop('_initial_state')
