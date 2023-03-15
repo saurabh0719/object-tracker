@@ -5,7 +5,7 @@
 </div align="center">
 <br>
 
-A pure python object change &amp; history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them. :pencil:
+A pure python object change &amp; history tracker. Monitor all changes in your object's lifecycle and trigger callback functions to capture them. :pencil:
 
 ```sh
 $ pip install object-tracker
@@ -167,9 +167,9 @@ Every change is implicitly pushed - `push(attr, old, new)` - to the `_changelog`
 user = User("A")
 user.name = "B" 
 
-user_.changelog.print()
+user._changelog.print()
 
-history = user_.changelog.fetch()
+history = user._changelog.fetch()
 print(history) 
 
 ```
