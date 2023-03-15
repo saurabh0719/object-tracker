@@ -68,8 +68,12 @@ class TestTracker(unittest.TestCase):
         self.assertEqual(len(user._changelog), 0)
         user._changelog.flush()
 
-    def test_ignore_init(self):
+        user_2 = User("B", 50)
+        assert user.name == "A"
+        assert user_2.name == "B"
+        assert user_2.age == 50
 
+    def test_ignore_init(self):
         user = User("A", 100)
         assert user._has_changed() is False
         user.name = "B"
