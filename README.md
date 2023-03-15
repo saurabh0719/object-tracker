@@ -374,5 +374,3 @@ This source code is licensed under the BSD-style license found in the LICENSE fi
 ```
 
 [Go back to the table of contents](#contents)
-
-<hr>
