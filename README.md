@@ -1,7 +1,7 @@
 ## hawkeye :eagle:
 
 <div align="center">
-    <img src="assets/hawkeye.png.png" width ="75%">
+    <img src="./assets/hawkeye.png.png" width ="75%">
     
 <div align="center">
 
