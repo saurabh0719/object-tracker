@@ -54,8 +54,7 @@ class ObjectTracker:
 
     def __setattr__(self, attr, value) -> None:
         """
-        Overrides __setattr__ to track history and notify observers
-
+            Overrides __setattr__ to track history and notify observers
         """
         curr = getattr(self, attr, value)
         super().__setattr__(attr, value)
@@ -95,6 +94,12 @@ class ObjectTracker:
             observer(attr, old, new)
 
     def _notify_observers(self, attr, old, new):
+        """
+            Notifies all observers 
+
+            if self._auto_notify is False
+            This method will have to be called manually
+        """
         if self._attribute_observer_map:
             observers = self._attribute_observer_map.get(attr, [])
             self._call_observers(attr, old, new, observers)
@@ -108,7 +113,9 @@ class ObjectTracker:
 
     def _has_attribute_changed(self, attr):
         """
-        print(obj._has_attribute_changed('name'))
+            print(obj._has_attribute_changed('name'))
+
+            Returns a bool on whether the given attribute has changed or not
         """
         if self._initial_state:
             return getattr(self._initial_state, attr, None) != getattr(self, attr, None)
@@ -116,7 +123,9 @@ class ObjectTracker:
 
     def _has_changed(self):
         """
-        print(obj._has_changed('name'))
+            print(obj._has_changed('name'))
+
+            Returns a bool on whether the object as a whole has changed or not
         """
         if self._initial_state:
             curr_dict = deepcopy(self.__dict__)
@@ -125,4 +134,7 @@ class ObjectTracker:
         return self._changelog.has_changed()
     
     def _track_initial_state(self):
+        """
+            creates a deepcopy of the current object for faster 'has_changed' comparision later
+        """
         self._initial_state = deepcopy(self)

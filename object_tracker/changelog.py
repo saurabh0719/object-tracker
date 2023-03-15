@@ -57,13 +57,19 @@ class ObjectChangeLog:
 
     def filter(self, attrs=None):
         """
-        obj.filter(['name',]).fetch()
+            obj.filter(['name',]).fetch()
+
+            - Includes given attributes in the result log
+            - Stores temporary filtered result in self.buffer
         """
         return self._process_filter(attrs)
     
     def exclude(self, attrs=None):
         """
-        obj.exclude(['name',]).fetch()
+            obj.exclude(['name',]).fetch()
+
+            - Encludes given attributes in the result log
+            - Stores temporary filtered result in self.buffer
         """
         return self._process_filter(attrs, True)
     
@@ -83,6 +89,9 @@ class ObjectChangeLog:
         return len(self.buffer) if self.buffer else len(self.log)
 
     def push(self, attr, old, new) -> None:
+        """
+            Pushes a new structured log entry 
+        """
         self.log.append(
             LogEntry(
                 attr=attr, 
@@ -99,7 +108,7 @@ class ObjectChangeLog:
 
     def has_attribute_changed(self, attr):
         """
-        Checks if an attribute has changed by verifying against the log
+            Checks if an attribute has changed by verifying against the log
         """
         first = None
         last = None
@@ -122,7 +131,7 @@ class ObjectChangeLog:
 
     def has_changed(self):
         """
-        Checks if any attribute has been hanged by verifying against the log
+            Checks if any attribute of the object has been hanged by verifying against the log
         """
         seen = set()
         for entry in self.log:

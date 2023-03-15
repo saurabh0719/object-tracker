@@ -10,7 +10,13 @@ from datetime import datetime
 
 class LogEntry: 
     """
-    A single record in the Change log
+        A single record in the Change log
+        
+        Contains the following attributes - 
+        - attr: str 
+        - old: any
+        - new: any
+        - timestamp: datetime.datetime
     """
     def __init__(self, attr, old, new) -> None:
         self.attr = attr
