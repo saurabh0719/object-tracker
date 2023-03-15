@@ -62,6 +62,15 @@ class ObjectTracker:
 
         # get previous frame
         caller_frame = inspect.currentframe().f_back
+
+        # CPython implementation detail: 
+        #
+        # https://docs.python.org/3/library/inspect.html#inspect.currentframe
+        #
+        # This function relies on Python stack frame support in the interpreter, 
+        # which isn’t guaranteed to exist in all implementations of Python. 
+        # If running in an implementation without Python stack frame support this function returns None.
+
         if caller_frame:
             caller_fn = caller_frame.f_code.co_name
             if (
