@@ -1,5 +1,5 @@
 import unittest
-from hawk_eye import ObjectTracker
+from object_tracker import ObjectTracker
 
 # Demo object for testing
 class User(ObjectTracker):

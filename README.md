@@ -1,14 +1,14 @@
 <div align="center">
     <img src="./assets/hawkeye.png" width ="75%">
 
-# hawkeye 
+# Object Tracker
 </div align="center">
 <br>
 
 A pure python object change &amp; history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them. :pencil:
 
 ```sh
-$ pip install hawk-eye
+$ pip install object-tracker
 ```
 
 Tested for python `3.7` and above.
@@ -44,7 +44,7 @@ Tested for python `3.7` and above.
 
 ```python
 
-from hawk_eye import ObjectTracker
+from object_tracker import ObjectTracker
 
 def observer(attr, old, new):
     print(f"Observer : {attr} -> {old} - {new}")
@@ -70,7 +70,7 @@ print(user._has_changed())
 <span id="guide"></span>
 ## Guide 
 
-Hawkeye uses an `underscore _` before method and attribute names, to prevent being overriden. 
+The Object Tracker uses an `underscore _` before method and attribute names, to prevent being overriden. 
 
 [Go back to the table of contents](#contents)
 
@@ -90,7 +90,7 @@ There are a bunch of config variables that can be modified when inheriting the `
 
 ```python
 
-from hawk_eye import ObjectTracker
+from object_tracker import ObjectTracker
 
 def observer(attr, old, new):
     print(f"Observer : {attr} -> {old} - {new}")
@@ -253,7 +253,7 @@ You can set observer functions that will be triggered whenever a change takes pl
 
 ```python
 
-from hawk_eye import ObjectTracker
+from object_tracker import ObjectTracker
 
 def observer(attr, old, new):
     print(f"Observer : {attr} -> {old} - {new}")
@@ -320,7 +320,7 @@ class User(ObjectTracker):
 
 ```python
 
-from hawk_eye import ObjectTracker
+from object_tracker import ObjectTracker
 
 def observer(attr, old, new):
     print(f"Observer : {attr} -> {old} - {new}")
@@ -356,7 +356,7 @@ $ python -m unittest -v
 
 * Latest - `v0.1.0` 
 
-View Hawkeye's detailed [release history](https://github.com/saurabh0719/hawkeye/releases/).
+View object-tracker's detailed [release history](https://github.com/saurabh0719/object-tracker/releases/).
 
 [Go back to the table of contents](#contents)
 

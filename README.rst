@@ -1,13 +1,13 @@
-hawkeye
--------
+object-tracker
+--------------
 
 A pure python object change and history tracker. Monitor all changes in your objects lifecycle and trigger callback functions to capture them.
 
-View the `Github repository <https://github.com/saurabh0719/hawk-eye>`__ and the `official docs <https://github.com/saurabh0719/hawk-eye#README>`__.
+View the `Github repository <https://github.com/saurabh0719/object-tracker>`__ and the `official docs <https://github.com/saurabh0719/object-tracker#README>`__.
 
 .. code:: sh
 
-    $ pip install hawk-eye
+    $ pip install object-tracker
 
 Tested for python 3.6, 3.7 and above.
 
@@ -35,7 +35,7 @@ Usage :
 
 .. code:: python
 
-   from hawk_eye import ObjectTracker
+   from object_tracker import ObjectTracker
 
     def observer(attr, old, new):
         print(f"Observer : {attr} -> {old} - {new}")
