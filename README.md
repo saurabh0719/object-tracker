@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./assets/hawkeye.png" width ="75%">
+    <img src="./assets/hawkeye.png" width ="50%">
     
 # hawkeye :eagle:
 </div align="center">
