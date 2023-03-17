@@ -93,6 +93,15 @@ class TestObjectTracker(unittest.TestCase):
         self.assertEqual(len(user.tracker.observers), 1)
         assert callable(user.tracker.observers[0])
 
+    def test_track_initial_state(self):
+        user = User("A", 100)
+        user.tracker.set_initial_state(user)
+        self.assertFalse(user.tracker.changed())
+        self.assertFalse(user.tracker.attribute_changed('name'))
+        user.name = "B"
+        self.assertTrue(user.tracker.changed())
+        self.assertTrue(user.tracker.attribute_changed('name'))
+
     def test_ignore_init(self):
         user = User("A", 100)
         assert user.tracker.changed() is False

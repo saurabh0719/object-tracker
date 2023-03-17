@@ -28,6 +28,7 @@ class Tracker:
         self.ignore_init = kwargs.get("ignore_init", True)
         self.observable_attributes = kwargs.get("observable_attributes", [])
         self.attribute_observer_map = kwargs.get("attribute_observer_map", {})
+        # needed when this Tracker class is used as a standalone
         if kwargs.get("initial_state"):
             self.initial_state = deepcopy(kwargs.get("initial_state"))
         else:
@@ -73,11 +74,12 @@ class Tracker:
         """
         return self.log
 
-    def track_initial_state(self) -> None:
+    def set_initial_state(self, obj) -> None:
         """
-        creates a deepcopy of the current object for faster 'has_changed' comparision later
+        creates a deepcopy of the current object 
+            -> needed when tracker is used independently ie. no ObjectTracker inherited
         """
-        self.initial_state = deepcopy(self)
+        self.initial_state = deepcopy(obj)
 
     def print(self):
         """
@@ -94,9 +96,6 @@ class Tracker:
             if not self.initial_state:
                 raise InitialStateMissingException()
             return getattr(self.initial_state, attr, None) != getattr(obj, attr, None)
-
-        if self.initial_state:
-            return getattr(self.initial_state, attr, None) != getattr(self, attr, None)
 
         first = None
         last = None
@@ -126,9 +125,6 @@ class Tracker:
             if not self.initial_state:
                 raise InitialStateMissingException()
             return obj.__dict__ != self.initial_state.__dict__
-                
-        if self.initial_state:
-            return self.__dict__ != self.initial_state.__dict__
 
         seen = set()
         for entry in self.log.log:
