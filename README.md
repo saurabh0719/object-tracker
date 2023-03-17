@@ -12,7 +12,7 @@ $ pip install object-tracker
 ```
 
 <div align="center">
-    <strong><a href="https://github.com/saurabh0719/object-tracker">Github</a> | <a href="https://saurabh0719.github.io">Website</a> | <a href="https://github.com/saurabh0719/object-tracker/releases">release notes for v0.3.0!</a> </strong>
+    <strong><a href="https://github.com/saurabh0719/object-tracker">Github</a> | <a href="https://saurabh0719.github.io">Website</a> | <a href="https://github.com/saurabh0719/object-tracker/releases">Release notes</a> </strong>
 </div>
 
 Tested for python `3.7` and above.
