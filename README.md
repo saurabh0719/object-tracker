@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
-    <h1>Object Tracker</h2>
+    <h1>Object Tracker</h1>
 </div>
 
 <br>
