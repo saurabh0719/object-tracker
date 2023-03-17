@@ -1,8 +1,11 @@
 <div align="center">
-    <img src="https://content-dump-3.s3.ap-south-1.amazonaws.com/saurabh/hawkeye.png" width ="75%"/>
+    <img src="https://content-dump-3.s3.ap-south-1.amazonaws.com/saurabh/hawkeye.png" width ="75%">
+</div>
 
-<h1>Object Tracker</h2>
-</div align="center">
+<div align="center">
+    <h1>Object Tracker</h2>
+</div>
+
 <br>
 
 A pure python object change &amp; history tracker. Monitor all changes in your object's lifecycle and trigger callback functions to capture them. :pencil:
