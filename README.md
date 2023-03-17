@@ -1,7 +1,7 @@
 <div align="center">
     <img src="https://content-dump-3.s3.ap-south-1.amazonaws.com/saurabh/hawkeye.png" width ="75%"/>
 
-# Object Tracker
+<h1>Object Tracker</h2>
 </div align="center">
 <br>
 
