@@ -27,9 +27,9 @@ Tested for python `3.7` and above.
 
 <span id="contents"></span>
 ## Table of Contents :
-* [Key Features](#features)  
+* [Key Features](#features)
+* [Basic Usage](#usage)   
 * [Getting Started](#guide)
-    * [Basic Usage](#usage) 
     * [How does it work?](#how)
        * [class ObjectTracker](#objecttracker)
        * [class Tracker](#tracker)
