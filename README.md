@@ -104,7 +104,6 @@ class TrackerObject(ObjectTracker):
  
 - See further implementation details in `object_tracker/wrapper.py`.
 
-<br>
 
 #### class `Tracker` 
 
