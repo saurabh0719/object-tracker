@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./assets/hawkeye.png" width ="75%">
+    <img src="https://content-dump-3.s3.ap-south-1.amazonaws.com/saurabh/hawkeye.png" width ="75%">
 
 # Object Tracker
 </div align="center">
@@ -10,6 +10,10 @@ A pure python object change &amp; history tracker. Monitor all changes in your o
 ```sh
 $ pip install object-tracker
 ```
+
+<div align="center">
+    <strong><a href="https://github.com/saurabh0719/jett">Github</a> | <a href="https://saurabh0719.github.io">Website</a> | <a href="https://github.com/saurabh0719/jett/releases">release notes for v0.3.0!</a> </strong>
+</div>
 
 Tested for python `3.7` and above.
 
