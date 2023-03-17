@@ -86,7 +86,7 @@ The tracker uses an `underscore _` before method and attribute names, to prevent
 
 The **object_tracker** module consists of 2 major classes - 
 
-#### `ObjectTracker` 
+#### class `ObjectTracker` 
 
 An inheritable class that implements the `__setattr__` methods and reports changes to the `Tracker` class that's initialised inside it.
 
@@ -106,7 +106,7 @@ class TrackerObject(ObjectTracker):
 
 <br>
 
-#### `Tracker` 
+#### class `Tracker` 
 
 This object is initialised inside the `ObjectTracker` and does all the heavylifting ie. storing change history and checking if any change has occured. Can be accessed through the `tracker` attribute when inheriting `ObjectTracker`. 
 
