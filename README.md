@@ -100,7 +100,7 @@ class TrackerObject(ObjectTracker):
 ```
 - It adds a `tracker` attribute to the subclass and can be accessed by `self.tracker`.
 
-- Don't forget to initialise call it's `__init__` . You can define various parameters, see (the configuration guide)[#config]
+- Don't forget to initialise call it's `__init__` . You can define various parameters, see [the configuration guide](#config)
  
 - See further implementation details in `object_tracker/wrapper.py`.
 
