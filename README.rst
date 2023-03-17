@@ -17,7 +17,8 @@ Key Features
 -  Determine if a python object has changed.
 -  Investigate change history through the changelog.
 -  Trigger callback functions whenever the object or an attribute has changed.
--  Simple query interface for object changelog. 
+-  Simple and structured API. 
+-  Queryable change history log.
 
 License
 -------
@@ -47,11 +48,11 @@ Usage :
 
 
     user = User("A")
-    print(user._has_changed()) 
+    print(user.tracker.changed()) 
     # False
 
     user.name = "B" # observers will be triggered
     # Observer : name -> A - B
 
-    print(user._has_changed()) 
+    print(user.tracker.changed()) 
     # True
