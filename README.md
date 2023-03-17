@@ -48,6 +48,8 @@ Tested for python `3.7` and above.
 <span id="usage"></span>
 ## Basic Usage 
 
+Inherit the `ObjectTracker` class to create a trackable object.
+
 ```python
 
 from object_tracker import ObjectTracker
@@ -71,6 +73,8 @@ print(user.tracker.changed())
 # True
 
 ```
+
+To use the tracker without inheriting - [read this guide](#lonetracker)
 
 <span id="guide"></span>
 ## Getting Started
