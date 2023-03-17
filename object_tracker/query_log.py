@@ -8,27 +8,27 @@ This source code is licensed under the BSD-style license found in the LICENSE fi
 from .entry import LogEntry
 
 
-class ObjectChangeLog:
-    """
-    The Change log
-
-    It maintains 2 lists - 
-        -> log : the permanent store of log entries
-        -> buffer : temporary memory to store state while filtering 
-    """
-
+class QueryLog:
     def __init__(self) -> None:
         self.log = []
         self.buffer = []
+        self.log_len = 0
+        self.buffer_len = 0
 
     def __str__(self) -> str:
-        return f"ObjectChangeLog -> BUFFER {len(self.buffer)} LOG {len(self.log)}"
+        return f"QueryLog -> BUFFER {self.buffer_len} LOG {self.log_len}"
     
     def __repr__(self) -> str:
-        return str({'log': len(self.log), 'buffer': len(self.buffer)})
+        return str({'log': self.log_len, 'buffer': self.buffer_len})
     
     def __len__(self) -> int:
-        return len(self.log)
+        return self.log_len
+    
+    def print(self):
+        if self.buffer:
+            print(self.buffer)
+            return
+        print(self.log)
 
     def _process_filter(self, attrs, exclude=False):
         """
@@ -52,6 +52,8 @@ class ObjectChangeLog:
             self.buffer = list(filter(lambda x: not _filter(x), self.log))
         else:
             self.buffer = list(filter(lambda x: _filter(x), self.log))
+        
+        self.buffer_len = len(self.buffer)
 
         return self
 
@@ -82,11 +84,13 @@ class ObjectChangeLog:
                 self.log.remove(item)
         else:
             self.log = []
+        self.log_len = len(self.log)
             
         self.buffer = []
+        self.buffer_len = len(self.buffer)
 
     def count(self) -> None:
-        return len(self.buffer) if self.buffer else len(self.log)
+        return self.buffer_len if self.buffer else self.log_len
 
     def push(self, attr, old, new) -> None:
         """
@@ -99,45 +103,4 @@ class ObjectChangeLog:
                 new=new
             )
         )
-
-    def print(self):
-        if self.buffer:
-            print(self.buffer)
-            return
-        print(self.log)
-
-    def has_attribute_changed(self, attr):
-        """
-            Checks if an attribute has changed by verifying against the log
-        """
-        first = None
-        last = None
-
-        for i in range(len(self.log)):
-            if attr != self.log[i].attr:
-                continue
-            if not first:
-                first = self.log[i]
-                continue
-            last = self.log[i]
-
-        if not first:
-            return False
-
-        if first and not last:
-            return True if first.old != first.new else False
-
-        return first.old != last.new
-
-    def has_changed(self):
-        """
-            Checks if any attribute of the object has been hanged by verifying against the log
-        """
-        seen = set()
-        for entry in self.log:
-            if entry.attr in seen:
-                continue
-            if self.has_attribute_changed(entry.attr):
-                return True
-            seen.add(entry.attr)
-        return False
+        self.log_len += 1

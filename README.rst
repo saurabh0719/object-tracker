@@ -42,7 +42,7 @@ Usage :
 
     class User(ObjectTracker):
         def __init__(self, name) -> None:
-            self._observers = [observer,]
+            ObjectTracker.__init__(self, observers=[observer,])
             self.name = name
 
 

@@ -6,152 +6,119 @@ This source code is licensed under the BSD-style license found in the LICENSE fi
 """
 
 from copy import deepcopy
-import inspect
-from .changelog import ObjectChangeLog    
+from .query_log import QueryLog
 
 
-class ObjectTracker:
-    """
-    A tracker to see if an object has changed 
-
-    Usage : 
-
-        def observer(attr, old, new):
-            print(f"Observer : {attr} -> {old} - {new}")
-
-        class User(ObjectTracker):
-            def __init__(self, name) -> None:
-                self._observers = [observer,]
-                self.name = name
-
-
-        user = User("A")
-        print(user._has_changed()) # False
-
-        user.name = "B"
-        # Observer : name -> A - B
-
-        print(user._has_changed()) # True
-        
+class Tracker:
     """
 
-    # Class variables of the tracker 
-    # In the case where ObjectTracker's __init__ method is not called
-    # The class variables will be used. This will only work with Singletons 
-    # Otherwise there will be overwrites/loss of data due to a common changelog
-    _observers = []
-    _auto_notify = True
-    _ignore_init = True
-    _changelog = ObjectChangeLog() # class common changelog
-    _observable_attributes = []
-    _attribute_observer_map = {}
-    _initial_state = None
-    _tracker_attrs = [
-        '_observers', 
-        '_auto_notify', 
-        '_changelog', 
-        '_observable_attributes', 
-        '_attribute_observer_map', 
-        '_initial_state'
-        '_tracker_attrs'
-    ]
+    The Tracker
+
+    It maintains 2 lists - 
+        -> log : the permanent store of log entries
+        -> buffer : temporary memory to store state while filtering 
+
+    """
 
     def __init__(self, **kwargs) -> None:
-        """
-            Initialise all instance properties for the tracker
-        """
-        self._observers = kwargs.get("observers", [])
-        self._auto_notify = kwargs.get("auto_notify", True)
-        self._ignore_init = kwargs.get("ignore_init", True)
-        self._changelog = ObjectChangeLog() # Instance changelog
-        self._observable_attributes = kwargs.get("observable_attributes", [])
-        self._attribute_observer_map = kwargs.get("attribute_observer_map", {})
-        self._initial_state = kwargs.get("initial_state")
+        self.log = QueryLog() # init query log
+        self.observers = kwargs.get("observers", [])
+        self.auto_notify = kwargs.get("auto_notify", True)
+        self.ignore_init = kwargs.get("ignore_init", True)
+        self.observable_attributes = kwargs.get("observable_attributes", [])
+        self.attribute_observer_map = kwargs.get("attribute_observer_map", {})
+        self.initial_state = kwargs.get("initial_state")
 
-
-    def __setattr__(self, attr, value) -> None:
-        """
-            Overrides __setattr__ to track history and notify observers
-        """
-        curr = getattr(self, attr, value)
-        super().__setattr__(attr, value)
-
-        # get previous frame
-        caller_frame = inspect.currentframe().f_back
-
-        # CPython implementation detail: 
-        #
-        # https://docs.python.org/3/library/inspect.html#inspect.currentframe
-        #
-        # This function relies on Python stack frame support in the interpreter, 
-        # which isn’t guaranteed to exist in all implementations of Python. 
-        # If running in an implementation without Python stack frame support this function returns None.
-
-        if caller_frame:
-            caller_fn = caller_frame.f_code.co_name
-            if (
-                caller_frame.f_locals['self'].__class__ == self.__class__
-                and '__init__' in caller_fn
-                and self._ignore_init
-            ):
-                # Ignore changes made in the __init__ fn of the same class if self._ignore_init
-                return
-
-        self._changelog.push(
-            attr=attr, 
-            old=curr, 
-            new=value
-        )
-
-        if self._auto_notify:
-            self._notify_observers(attr, curr, value)
+    def __str__(self) -> str:
+        return f"ObjectChangeLog -> BUFFER {self.log.buffer_len} LOG {self.log.log_len}"
+    
+    def __repr__(self) -> str:
+        return str({'log': self.log.log_len, 'buffer': self.log.buffer_len})
+    
+    def __len__(self) -> int:
+        return self.log.log_len
 
     def _call_observers(self, attr, old, new, observers: list):
         for observer in observers:
             observer(attr, old, new)
 
-    def _notify_observers(self, attr, old, new):
+    def notify_observers(self, attr, old, new):
         """
-            Notifies all observers 
 
-            if self._auto_notify is False
-            This method will have to be called manually
+        Notifies all observers 
+
+        if self.auto_notify is False
+        This method will have to be called manually
+
         """
-        if self._attribute_observer_map:
-            observers = self._attribute_observer_map.get(attr, [])
+        if self.attribute_observer_map:
+            observers = self.attribute_observer_map.get(attr, [])
             self._call_observers(attr, old, new, observers)
             return
         
-        if self._observers:
-            if self._observable_attributes and attr not in self._observable_attributes:
+        if self.observers:
+            if self.observable_attributes and attr not in self.observable_attributes:
                 return 
             else:
-                self._call_observers(attr, old, new, self._observers)
+                self._call_observers(attr, old, new, self.observers)
 
-    def _has_attribute_changed(self, attr):
+    @property
+    def history(self):
         """
-            print(obj._has_attribute_changed('name'))
+        Query the log by using tracker.history
+        """
+        return self.log
 
-            Returns a bool on whether the given attribute has changed or not
+    def track_initial_state(self):
         """
-        if self._initial_state:
-            return getattr(self._initial_state, attr, None) != getattr(self, attr, None)
-        return self._changelog.has_attribute_changed(attr)
+        creates a deepcopy of the current object for faster 'has_changed' comparision later
+        """
+        self.initial_state = deepcopy(self)
 
-    def _has_changed(self):
+    def print(self):
         """
-            print(obj._has_changed('name'))
+        Utility std print fn
+        """
+        self.log.print()
 
-            Returns a bool on whether the object as a whole has changed or not
+    def attribute_changed(self, attr):
         """
-        if self._initial_state:
-            curr_dict = deepcopy(self.__dict__)
-            curr_dict.pop('_initial_state')
-            return curr_dict != self._initial_state.__dict__
-        return self._changelog.has_changed()
-    
-    def _track_initial_state(self):
+        Checks if an attribute has changed by verifying against the log
         """
-            creates a deepcopy of the current object for faster 'has_changed' comparision later
+        if self.initial_state:
+            return getattr(self.initial_state, attr, None) != getattr(self, attr, None)
+
+        first = None
+        last = None
+
+        for i in range(len(self.log.log)):
+            if attr != self.log.log[i].attr:
+                continue
+            if not first:
+                first = self.log.log[i]
+                continue
+            last = self.log.log[i]
+
+        if not first:
+            return False
+
+        if first and not last:
+            return True if first.old != first.new else False
+
+        return first.old != last.new
+
+    def changed(self):
         """
-        self._initial_state = deepcopy(self)
+        Checks if any attribute of the object has been hanged by verifying against the log
+        """
+        if self.initial_state:
+            return self.__dict__ != self.initial_state.__dict__
+
+        seen = set()
+        for entry in self.log.log:
+            if entry.attr in seen:
+                continue
+            if self.attribute_changed(entry.attr):
+                return True
+            seen.add(entry.attr)
+        return False

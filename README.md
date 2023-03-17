@@ -51,7 +51,7 @@ def observer(attr, old, new):
 
 class User(ObjectTracker):
     def __init__(self, name) -> None:
-        self._observers = [observer,]
+        ObjectTracker.__init__(self, observers=[observer,])
         self.name = name
 
 
@@ -99,8 +99,7 @@ def observer(attr, old, new):
 
 class User(ObjectTracker):
     def __init__(self, name) -> None:
-        self._observers = [observer,]
-        self._auto_notify = False
+        ObjectTracker.__init__(self, observers=[observer,], auto_notify=False)
         self.name = name
 
 ```
@@ -204,6 +203,7 @@ The changelog also offers the `has_changed(self)` and `has_attribute_changed(sel
 
 class User(ObjectTracker):
     def __init__(self, name, age) -> None:
+        super().__init__()
         self.name = name
         self.age = age
 
@@ -262,7 +262,7 @@ def observer(attr, old, new):
 
 class User(ObjectTracker):
     def __init__(self, name) -> None:
-        self._observers = [observer,]
+        ObjectTracker.__init__(self, observers=[observer,])
         self.name = name
 
 
@@ -290,10 +290,11 @@ def observer_b(attr, old, new):
 
 class User(ObjectTracker):
     def __init__(self, name) -> None:
-        self._attribute_observer_map = {
+        attribute_observer_map = {
             'name': [observer_a, observer_b], 
             'age': [observer_a,]
         }
+        ObjectTracker.__init__(self, attribute_observer_map=attribute_observer_map)
         self.name = name
         self.age
 
