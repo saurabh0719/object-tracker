@@ -7,5 +7,6 @@ This source code is licensed under the BSD-style license found in the LICENSE fi
 
 from .entry import Entry
 from .exceptions import InitialStateMissingException
+from .query_log import QueryLog
 from .tracker import Tracker
 from .wrapper import ObjectTracker
