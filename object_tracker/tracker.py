@@ -6,6 +6,7 @@ This source code is licensed under the BSD-style license found in the LICENSE fi
 """
 
 from copy import deepcopy
+from .exceptions import InitialStateMissingException
 from .query_log import QueryLog
 
 
@@ -27,7 +28,10 @@ class Tracker:
         self.ignore_init = kwargs.get("ignore_init", True)
         self.observable_attributes = kwargs.get("observable_attributes", [])
         self.attribute_observer_map = kwargs.get("attribute_observer_map", {})
-        self.initial_state = kwargs.get("initial_state")
+        if kwargs.get("initial_state"):
+            self.initial_state = deepcopy(kwargs.get("initial_state"))
+        else:
+            self.initial_state = None
 
     def __str__(self) -> str:
         return f"ObjectChangeLog -> BUFFER {self.log.buffer_len} LOG {self.log.log_len}"
@@ -42,7 +46,7 @@ class Tracker:
         for observer in observers:
             observer(attr, old, new)
 
-    def notify_observers(self, attr, old, new):
+    def notify_observers(self, attr, old, new) -> None:
         """
 
         Notifies all observers 
@@ -69,7 +73,7 @@ class Tracker:
         """
         return self.log
 
-    def track_initial_state(self):
+    def track_initial_state(self) -> None:
         """
         creates a deepcopy of the current object for faster 'has_changed' comparision later
         """
@@ -81,10 +85,16 @@ class Tracker:
         """
         self.log.print()
 
-    def attribute_changed(self, attr):
+    def attribute_changed(self, attr, obj=None) -> bool:
         """
         Checks if an attribute has changed by verifying against the log
         """
+
+        if obj:
+            if not self.initial_state:
+                raise InitialStateMissingException()
+            return getattr(self.initial_state, attr, None) != getattr(obj, attr, None)
+
         if self.initial_state:
             return getattr(self.initial_state, attr, None) != getattr(self, attr, None)
 
@@ -107,10 +117,16 @@ class Tracker:
 
         return first.old != last.new
 
-    def changed(self):
+    def changed(self, obj=None) -> bool:
         """
         Checks if any attribute of the object has been hanged by verifying against the log
         """
+
+        if obj:
+            if not self.initial_state:
+                raise InitialStateMissingException()
+            return obj.__dict__ != self.initial_state.__dict__
+                
         if self.initial_state:
             return self.__dict__ != self.initial_state.__dict__
 

@@ -1,5 +1,5 @@
 import unittest
-from object_tracker import ObjectTracker
+from object_tracker import ObjectTracker, Tracker, InitialStateMissingException
 
 def observer(attr, old, new):
     return attr, old, new
@@ -11,8 +11,13 @@ class User(ObjectTracker):
         self.name = name
         self.age = age
 
+class UntrackedUser:
+    def __init__(self, name, age) -> None:
+        self.name = name
+        self.age = age
 
-class TestChangeLog(unittest.TestCase):
+
+class TestTracker(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -46,8 +51,19 @@ class TestChangeLog(unittest.TestCase):
         user.tracker.history.flush()
         self.assertEqual(user.tracker.history.count(), 0)
 
+    def test_tracker_only(self):
+        user = UntrackedUser("A", 100)
+        tracker = Tracker()
+        self.assertEqual(tracker.initial_state, None)
+        self.assertRaises(InitialStateMissingException, tracker.changed, user)
+        tracker = Tracker(initial_state=user)
+        self.assertFalse(tracker.changed(user))
+        user.name = "B"
+        self.assertTrue(tracker.changed(user))
+        self.assertTrue(tracker.attribute_changed('name', user))
 
-class TestTracker(unittest.TestCase):
+
+class TestObjectTracker(unittest.TestCase):
     def setUp(self):
         pass
 
