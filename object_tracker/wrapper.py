@@ -41,16 +41,7 @@ class ObjectTracker:
     # The class variables will be used. This will only work with Singletons 
     # Otherwise there will be overwrites/loss of data due to a common changelog
 
-    tracker = Tracker() # class common tracker
-    _tracker_attrs = [
-        'tracker',
-        '_observers', 
-        '_auto_notify',  
-        '_observable_attributes', 
-        '_attribute_observer_map', 
-        '_initial_state'
-        '_tracker_attrs'
-    ]
+    tracker = Tracker() # class static tracker
 
     def __init__(self, **kwargs) -> None:
         """

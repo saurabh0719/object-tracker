@@ -5,7 +5,7 @@ All rights reserved.
 This source code is licensed under the BSD-style license found in the LICENSE file in the root directory of this source tree.
 """
 
-from .entry import LogEntry
+from .entry import Entry
 
 
 class QueryLog:
@@ -30,6 +30,9 @@ class QueryLog:
             return
         print(self.log)
 
+    def _filter(self, entry: Entry, attrs):
+            return entry.attr in attrs if attrs else True
+
     def _process_filter(self, attrs, exclude=False):
         """
         Processes filter attrs and saves it in the buffer
@@ -42,19 +45,14 @@ class QueryLog:
                 _attrs = attrs
 
             elif isinstance(attrs, str):
-                _attrs = [attrs,]
-
-        # innner
-        def _filter(entry: LogEntry):
-            return entry.attr in _attrs if _attrs else True
+                _attrs = [attrs,]      
 
         if exclude:
-            self.buffer = list(filter(lambda x: not _filter(x), self.log))
+            self.buffer = list(filter(lambda x: not self._filter(x, _attrs), self.log))
         else:
-            self.buffer = list(filter(lambda x: _filter(x), self.log))
+            self.buffer = list(filter(lambda x: self._filter(x, _attrs), self.log))
         
         self.buffer_len = len(self.buffer)
-
         return self
 
     def filter(self, attrs=None):
@@ -97,7 +95,7 @@ class QueryLog:
             Pushes a new structured log entry 
         """
         self.log.append(
-            LogEntry(
+            Entry(
                 attr=attr, 
                 old=old, 
                 new=new

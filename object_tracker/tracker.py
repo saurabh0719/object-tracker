@@ -35,7 +35,7 @@ class Tracker:
             self.initial_state = None
 
     def __str__(self) -> str:
-        return f"ObjectChangeLog -> BUFFER {self.log.buffer_len} LOG {self.log.log_len}"
+        return f"Tracker Log -> BUFFER {self.log.buffer_len} LOG {self.log.log_len}"
     
     def __repr__(self) -> str:
         return str({'log': self.log.log_len, 'buffer': self.log.buffer_len})

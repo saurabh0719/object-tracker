@@ -8,7 +8,7 @@ This source code is licensed under the BSD-style license found in the LICENSE fi
 from datetime import datetime
 
 
-class LogEntry: 
+class Entry: 
     """
         A single record in the Change log
         
