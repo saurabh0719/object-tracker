@@ -33,7 +33,7 @@ Tested for python `3.7` and above.
     * [How does it work?](#how)
        * [class ObjectTracker](#objecttracker)
        * [class Tracker](#tracker)
-* [Tracker API](#tracker)
+* [Tracker API](#trackerapi)
     * [Configuration](#config)
     * [Track object change](#change)
     * [History](#history)
@@ -132,7 +132,7 @@ print(user.tracker.changed())
 <hr>
 
 
-<span id="guide"></span>
+<span id="trackerapi"></span>
 ## Tracker API
 
 When an object has inherited `ObjectTracker`, it is now a trackable object. You can access the `Tracker` instance by using the `self.tracker` attribute of your trackable object. 
