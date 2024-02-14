@@ -1,9 +1,5 @@
 <div align="center">
-    <img src="https://content-dump-3.s3.ap-south-1.amazonaws.com/saurabh/hawkeye.png" width ="75%">
-</div>
-
-<div align="center">
-    <h1>Object Tracker</h1>
+    <img src="https://github.com/saurabh0719/object-tracker/assets/42310348/2d26abbd-005e-4e9c-81d6-b0e732a71c93" width ="50%">
 </div>
 
 <br>
